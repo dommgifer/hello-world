@@ -3,6 +3,6 @@ name: default
 
 steps:
 - name: test
-  image: golang:1.11
-  commands:
-  - go build
+  image: hello-word
+  context: ./
+  dockerfile: Dockerfile
