@@ -1,5 +1,8 @@
-pipeline:
-  build:
-    image: golang:1.11
-    commands:
-      - go build
+kind: pipeline
+name: default
+
+steps:
+- name: test
+  image: golang:1.11
+  commands:
+  - go build
