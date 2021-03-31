@@ -8,24 +8,7 @@ on:
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-
-#      - name: Build image
-#        run: docker build . --file Dockerfile --tag $IMAGE_NAME:$(date +%s)
-
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-
-#      - name: Push image
-#        run:  docker push $IMAGE_NAME:$(date +%s)
     steps:
-      # -
-      #   name: Checkout
-      #   uses: actions/checkout@v2
-      # -
-      #   name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v1
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -36,11 +19,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: test echo dommgifer
-        run: echo dommgifer
-      -
         name: Build and push
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: dommgifer/helloworld:test
+          tags: ${{ github.sha }}
