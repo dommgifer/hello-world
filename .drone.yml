@@ -5,10 +5,9 @@ steps:
 - name: build
   image: plugins/docker
   settings:
-    USERNAME:
+    username:
       from_secret: docker_username
-    PASSWORD:
+    password:
       from_secret: docker_password
     repo: dommgifer/helloworld
-    tags: 
-      - test
+    tags: latest
