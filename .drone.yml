@@ -3,6 +3,4 @@ name: default
 
 steps:
 - name: test
-  image: hello-word
-  context: ./
-  dockerfile: Dockerfile
+  image: plugins/docker
