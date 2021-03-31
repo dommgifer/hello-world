@@ -38,7 +38,7 @@ jobs:
       -
         name: Image digest
         env:
-          IMAGE_NAME: dommgifer
+          IMAGE_NAME: test
         run: echo "$IMAGE_NAME":"$(date)"
       -
         name: Build and push
