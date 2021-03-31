@@ -4,7 +4,7 @@ name: default
 steps:
 - name: test
   image: plugins/docker
-  setting:
+  settings:
     repo: dommgifer/helloworld
     tags: test
     USERNAME:
