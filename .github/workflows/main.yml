@@ -8,8 +8,6 @@ on:
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: dommgifer
 #    steps:
 #      - uses: actions/checkout@v2
 
@@ -39,6 +37,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Image digest
+        env:
+          IMAGE_NAME: dommgifer
         run: echo $IMAGE_NAME:$(date)
       -
         name: Build and push
