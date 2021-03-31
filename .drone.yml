@@ -4,4 +4,8 @@ name: default
 steps:
 - name: test
   image: plugins/docker
-  auto_tag: true
+  repo: dommgifer/hello-world
+  USERNAME:
+    from_secret: docker_username
+  PASSWORD:
+    from_secret: docker_password
