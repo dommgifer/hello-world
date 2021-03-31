@@ -39,7 +39,7 @@ jobs:
         name: Image digest
         env:
           IMAGE_NAME: dommgifer
-        run: echo $IMAGE_NAME:$(date)
+        run: echo "$IMAGE_NAME":"$(date)"
       -
         name: Build and push
         uses: docker/build-push-action@v2
