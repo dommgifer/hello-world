@@ -41,4 +41,4 @@ jobs:
         with:
           push: true
           id: docker_build
-          tags: dommgifer/helloworld:$(date +'%Y-%m-%d')
+          tags: "dommgifer/helloworld:$(date +'%Y-%m-%d')"
