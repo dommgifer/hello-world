@@ -35,7 +35,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          registry: ${{ github.actor }}
       -
         name: Image digest
         # env:
@@ -46,7 +45,6 @@ jobs:
         # uses: elgohr/Publish-Docker-Github-Action@master
         uses: docker/build-push-action@v2
         with:
-          name: ${{ secrets.DOCKERHUB_USERNAME }}/helloworld
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          tags: "$(date +'%Y-%m-%d')"
+          # name: ${{ secrets.DOCKERHUB_USERNAME }}/helloworld
+          id: docker_build
+          tags: dommgifer/helloworld:$(date +'%Y-%m-%d')
