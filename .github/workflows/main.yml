@@ -36,9 +36,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: test echo dommgifer
+        run: echo dommgifer
+      -
         name: Build and push
         uses: docker/build-push-action@v2
         with:
           push: true
-          id: docker_build
-          tags: "dommgifer/helloworld:$(date +'%Y-%m-%d')"
+          tags: dommgifer/helloworld:test
