@@ -42,4 +42,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: dommgifer/helloworld:$(date)
+          tags: ${{ secrets.IMAGE_NAME }}:$(date)
