@@ -8,8 +8,8 @@ on:
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
-#    env:
-#      IMAGE_NAME: dommgifer/helloworld
+    env:
+      IMAGE_NAME: dommgifer/helloworld
 #    steps:
 #      - uses: actions/checkout@v2
 
@@ -39,7 +39,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Image digest
-        run: echo ${{ secrets.DOCKERHUB_USERNAME }}/helloworld:$(date)
+        run: echo $IMAGE_NAME:$(date)
       -
         name: Build and push
         uses: docker/build-push-action@v2
