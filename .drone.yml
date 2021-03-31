@@ -2,12 +2,13 @@ kind: pipeline
 name: default
 
 steps:
-- name: test
+- name: build
   image: plugins/docker
   settings:
-    repo: dommgifer/helloworld
-    tags: test
     USERNAME:
       from_secret: docker_username
     PASSWORD:
       from_secret: docker_password
+    repo: dommgifer/helloworld
+    tags: 
+      - test
