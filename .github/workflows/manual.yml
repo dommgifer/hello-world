@@ -20,6 +20,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v2
+        repository: dommgifer/helloworld
         with:
           push: true
-          tags: dommgifer/helloworld:$(date +%s)
+          tags: $(date +%s)
