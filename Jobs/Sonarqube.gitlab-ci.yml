@@ -7,6 +7,7 @@ Sonarqube:
   variables:
     DOCKER_TLS_CERTDIR: ""
     SONAR_IMAGE: sonarsource/sonar-scanner-cli
+    DOCKER_HOST: "tcp://localhost:2375"
   services:
     - docker:19.03.12-dind
   script:
