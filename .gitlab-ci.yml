@@ -62,6 +62,9 @@ stages:
   - build
   - sonarqube
   - test
+  - review
+  - staging
+
 
 workflow:
   rules:
@@ -152,7 +155,6 @@ include:
   - template: Jobs/Code-Intelligence.gitlab-ci.yml  # https://gitlab.com/gitlab-org/gitlab/blob/master/lib/gitlab/ci/templates/Jobs/Code-Intelligence.gitlab-ci.yml
   - local: Jobs/Sonarqube.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml 
-  - template: Jobs/Deploy.gitlab-ci.yml
 
 code_quality:
   variables:
