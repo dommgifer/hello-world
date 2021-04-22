@@ -8,8 +8,6 @@ Sonarqube:
     DOCKER_TLS_CERTDIR: ""
     SONAR_IMAGE: sonarsource/sonar-scanner-cli
     DOCKER_HOST: "tcp://localhost:2375"
-  services:
-    - docker:19.03.12-dind
   script:
     - docker pull --quiet "$SONAR_IMAGE"
     - |
@@ -18,4 +16,4 @@ Sonarqube:
         -e SONAR_LOGIN="$SONAR_LOGIN" \
         -v "$(pwd):/usr/src" \
         $SONAR_IMAGE  -Dsonar.projectKey=$SONAR_PROJECT
-    
+      
