@@ -151,7 +151,7 @@ include:
   - local: Jobs/Build.gitlab-ci.yml  # https://gitlab.com/gitlab-org/gitlab/blob/master/lib/gitlab/ci/templates/Jobs/Build.gitlab-ci.yml
   - local: Jobs/Sonarqube.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml 
-  - lcoal: Jobs/Deploy.gitlab-ci.yml
+  - local: Jobs/Deploy.gitlab-ci.yml
 
 # code_quality:
 #   variables:
