@@ -12,7 +12,7 @@ Deploy:
     - mkdir -p /.kube
     - echo $KUBE_CONFIG | base64 -d > /.kube/config
     - docker pull "$KUBECTL_IMAGE"
-    - ls -l
+    - ls -l /.kube
     - |
       docker run \
         -v "/.kube:/.kube" \
