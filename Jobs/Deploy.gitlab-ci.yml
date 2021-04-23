@@ -13,7 +13,4 @@ Deploy:
   script:
     - docker pull --quiet "$KUBECTL_IMAGE"
     - |
-      docker run \
-        -v ${pwd}:/bitnami \
-        -v $(pwd):/app \
-        $KUBECTL_IMAGE --kubeconfig=/bitnami/kubeconfig  apply -f /app/deployment.yaml
+      docker run -v ${pwd}:/bitnami $KUBECTL_IMAGE  apply -f /bitnami/deployment.yaml --kubeconfig=/bitnami/config 
