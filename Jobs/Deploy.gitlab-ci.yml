@@ -8,13 +8,11 @@ Deploy:
     DOCKER_TLS_CERTDIR: ""
     KUBECTL_IMAGE: bitnami/kubectl
     DOCKER_HOST: "tcp://localhost:2375"
-    KUBECONFIG: /.kube/config
   before_script:
-    - mkdir -p /.kube
-    - echo $KUBE_CONFIG | base64 -d > $KUBECONFIG
+    - echo $KUBE_CONFIG | base64 -d > config
   script:
     - docker pull --quiet "$KUBECTL_IMAGE"
     - |
       docker run \
-        -v $KUBECONFIG:/.kube/config \
+        -v config:/.kube/config \
         $KUBECTL_IMAGE apply -f deployment.yaml
