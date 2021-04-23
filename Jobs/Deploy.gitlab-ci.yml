@@ -10,7 +10,7 @@ Deploy:
     DOCKER_HOST: "tcp://localhost:2375"
     KUBECONFIG: /.kube/config
   before_script:
-    - mkdir -p $KUBECONFIG
+    - mkdir -p /.kube
     - echo $KUBE_CONFIG | base64 -d > $KUBECONFIG
   script:
     - docker pull --quiet "$KUBECTL_IMAGE"
