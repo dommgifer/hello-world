@@ -15,5 +15,5 @@ Deploy:
     - ls -l /.kube
     - |
       docker run \
-        -v /.kube:/.kube \
+        -v /.kube:/root/.kube \
         -v "${pwd}:/app" $KUBECTL_IMAGE kubectl apply -f /app/deployment.yaml
