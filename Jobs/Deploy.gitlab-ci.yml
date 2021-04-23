@@ -15,6 +15,6 @@ Deploy:
     - docker pull --quiet "$KUBECTL_IMAGE"
     - |
       docker run \
-        -v ${pwd}:/.kube \
+        -v ${pwd}/config:/.kube/config \
         -v $(pwd):/app \
         $KUBECTL_IMAGE apply -f /app/deployment.yaml
