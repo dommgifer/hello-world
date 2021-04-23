@@ -15,5 +15,5 @@ Deploy:
     - ls -l
     - |
       docker run \
-        -v /.kube:/.kube \
-        -v ${pwd}:/app $KUBECTL_IMAGE get pod --kubeconfig=/.kube/config
+        -v "/.kube:/.kube" \
+        -v "${pwd}:/app" $KUBECTL_IMAGE get pod --kubeconfig=/.kube/config
