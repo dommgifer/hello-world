@@ -6,7 +6,7 @@ Deploy:
     - docker:19.03.12-dind
   variables:
     DOCKER_TLS_CERTDIR: ""
-    KUBECTL_IMAGE: bitnami/kubectl
+    KUBECTL_IMAGE: sikalabs/kubectl:latest
     DOCKER_HOST: "tcp://localhost:2375"
   script:
     - mkdir -p /.kube
@@ -15,5 +15,5 @@ Deploy:
     - ls -l /.kube
     - |
       docker run \
-        -v "/.kube:/.kube" \
-        -v "${pwd}:/app" $KUBECTL_IMAGE get pod --kubeconfig=/.kube/config
+        -v /.kube:/.kube \
+        -v "${pwd}:/app" $KUBECTL_IMAGE kubectl apply -f /app/deployment.yaml
