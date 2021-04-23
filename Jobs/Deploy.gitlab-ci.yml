@@ -10,6 +10,8 @@ Deploy:
     DOCKER_HOST: "tcp://localhost:2375"
   script:
     - echo $KUBE_CONFIG | base64 -d > config
-    - docker pull --quiet "$KUBECTL_IMAGE"
+    - docker pull "$KUBECTL_IMAGE"
     - ls -l
-    - docker run -v "${pwd}:/bitnami" $KUBECTL_IMAGE  apply -f /bitnami/deployment.yaml
+    - |
+      docker run \
+        -v ${pwd}:/bitnami $KUBECTL_IMAGE apply -f /bitnami/deployment.yaml
