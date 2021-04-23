@@ -9,9 +9,11 @@ Deploy:
     KUBECTL_IMAGE: bitnami/kubectl
     DOCKER_HOST: "tcp://localhost:2375"
   script:
-    - echo $KUBE_CONFIG | base64 -d > config
+    - mkdir -p /.kube
+    - echo $KUBE_CONFIG | base64 -d > /.kube/config
     - docker pull "$KUBECTL_IMAGE"
     - ls -l
     - |
       docker run \
-        -v ${pwd}:/.kube $KUBECTL_IMAGE apply -f /.kube/deployment.yaml
+        -v /.kube:/.kube \
+        -v ${pwd}:/app $KUBECTL_IMAGE apply -f /.app/deployment.yaml
