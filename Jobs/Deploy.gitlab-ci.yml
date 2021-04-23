@@ -1,0 +1,11 @@
+Deploy:
+  stage: deploy
+  image: bitnami/kubectl
+  allow_failure: true
+  variables:
+    KUBECONFIG: /.kube/config
+  before_script:
+    echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
+  script:
+    - ls
+    - kubectl apply -f deployment.yaml

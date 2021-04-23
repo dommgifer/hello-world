@@ -28,9 +28,8 @@ spec:
         app: helloserver
     spec:
       imagePullSecrets:
-      - name: pipeline-docker-registry
+      - name: dockerhub
       containers:
-      - name: helloserver
-        image: IMAGE_NAME
+      - name: dommgifer/hello-world
         ports:
         - containerPort: 80
