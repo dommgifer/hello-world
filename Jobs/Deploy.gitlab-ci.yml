@@ -14,4 +14,4 @@ Deploy:
     - ls -l
     - |
       docker run \
-        -v ${pwd}:/bitnami $KUBECTL_IMAGE apply -f /bitnami/deployment.yaml
+        -v ${pwd}:/.kube $KUBECTL_IMAGE apply -f /.kube/deployment.yaml
