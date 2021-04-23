@@ -5,7 +5,7 @@ Deploy:
   variables:
     KUBECONFIG: /.kube/config
   before_script:
-    echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
+    - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
   script:
     - ls
     - kubectl apply -f deployment.yaml
