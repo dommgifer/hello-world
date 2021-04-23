@@ -1,12 +1,20 @@
 Deploy:
   stage: deploy
-  image: buoyantio/kubectl
+  image: docker:19.03.12
   allow_failure: true
+  services:
+    - docker:19.03.12-dind
   variables:
+    DOCKER_TLS_CERTDIR: ""
+    KUBECTL_IMAGE: bitnami/kubectl
+    DOCKER_HOST: "tcp://localhost:2375"
     KUBECONFIG: /.kube/config
   before_script:
-    - ls -l
     - mkdir -p $KUBECONFIG
-    - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
+    - echo $KUBE_CONFIG | base64 -d > $KUBECONFIG
   script:
-    - kubectl apply -f deployment.yaml
+    - docker pull --quiet "$KUBECTL_IMAGE"
+    - |
+      docker run \
+        -v $KUBECONFIG:/.kube/config \
+        $KUBECTL_IMAGE apply -f deployment.yaml
