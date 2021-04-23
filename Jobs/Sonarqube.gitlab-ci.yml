@@ -1,5 +1,5 @@
 Sonarqube:
-  stage: sonarqube
+  stage: test
   image: docker:19.03.12
   allow_failure: true
   services:

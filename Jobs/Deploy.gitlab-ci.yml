@@ -5,6 +5,7 @@ Deploy:
   variables:
     KUBECONFIG: /.kube/config
   before_script:
+    - mkdir -p $KUBECONFIG
     - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
   script:
     - ls
