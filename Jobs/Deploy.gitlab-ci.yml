@@ -11,6 +11,7 @@ Deploy:
   before_script:
     - echo $KUBE_CONFIG | base64 -d > config
     - ls -l
+    - cat config
   script:
     - docker pull --quiet "$KUBECTL_IMAGE"
     - |
