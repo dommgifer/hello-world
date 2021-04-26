@@ -30,6 +30,7 @@ spec:
       imagePullSecrets:
       - name: dockerhub
       containers:
-      - name: dommgifer/hello-world
+      - name: hello-world
+        image: dommgifer/hello-world
         ports:
         - containerPort: 80
