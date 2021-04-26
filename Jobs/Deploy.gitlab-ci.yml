@@ -18,6 +18,5 @@ Deploy:
     - |
       docker run  \
         -v "$MOUNT_POINT:/mnt" \
-        -e TAG=$CI_COMMIT_SHA \
         $KUBECTL_IMAGE \
-        envsubst < /mnt/deployment.yaml | kubectl apply --kubeconfig=/mnt/config -f -
+        kubectl set image -f /mnt/kubernetes/deployment.yaml hello-world=$CI_APPLICATION_REPOSITORY:$CI_COMMIT_SHA --local -o yaml | kubectl apply --kubeconfig=/mnt/config -f -

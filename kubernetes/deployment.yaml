@@ -1,16 +1,3 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: helloserver-service
-spec:
-  selector:
-    app: helloserver
-  type: NodePort
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -31,6 +18,6 @@ spec:
       - name: dockerhub
       containers:
       - name: hello-world
-        image: dommgifer/hello-world:$TAG
+        image: dommgifer/hello-world
         ports:
         - containerPort: 80
