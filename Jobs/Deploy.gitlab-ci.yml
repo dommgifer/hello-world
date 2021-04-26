@@ -8,12 +8,14 @@ Deploy:
     DOCKER_TLS_CERTDIR: ""
     KUBECTL_IMAGE: sikalabs/kubectl:latest
     DOCKER_HOST: "tcp://localhost:2375"
-    KUBE_CONFIG: $KUBE_CONFIG
+    # KUBE_CONFIG: $KUBE_CONFIG
+    MOUNT_POINT: /builds/$CI_PROJECT_PATH/mnt
   script:
-    - echo $KUBE_CONFIG | base64 -d > config
+    - mkdir -p "$MOUNT_POINT"
+    - echo $KUBE_CONFIG | base64 -d > $MOUNT_POINT/config
     - docker pull "$KUBECTL_IMAGE"
     - /bin/sleep 600
     - |
-      docker run -it \
-        -v "${pwd}:/app" \
-        $KUBECTL_IMAGE sleep 600
+      docker run  \
+        -v "$MOUNT_POINT:/mnt" \
+        $KUBECTL_IMAGE get pod
