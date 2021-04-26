@@ -4,6 +4,7 @@ build:
   variables:
     DOCKER_TLS_CERTDIR: ""
     DOCKER_HOST: "tcp://localhost:2375"
+    CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY
   services:
     - docker:19.03.12-dind
   script:
