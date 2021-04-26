@@ -14,6 +14,7 @@ Deploy:
     # - mkdir -p "$MOUNT_POINT"
     - echo $KUBE_CONFIG | base64 -d > $MOUNT_POINT/config
     - docker pull "$KUBECTL_IMAGE"
+    - /bin/sleep 600
     - |
       docker run  \
         -v "$MOUNT_POINT:/mnt" \
