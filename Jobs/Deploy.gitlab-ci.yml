@@ -8,13 +8,12 @@ Deploy:
     DOCKER_TLS_CERTDIR: ""
     KUBECTL_IMAGE: sikalabs/kubectl:latest
     DOCKER_HOST: "tcp://localhost:2375"
+    KUBE_CONFIG: $KUBE_CONFIG
   script:
-    - mkdir -p /.kube
-    - echo $KUBE_CONFIG | base64 -d > /.kube/config
+    - echo $KUBE_CONFIG | base64 -d > config
     - docker pull "$KUBECTL_IMAGE"
     - /bin/sleep 600
     - |
-      docker run \
-        -v /.kube:/root/.kube \
+      docker run -it \
         -v "${pwd}:/app" \
-        $KUBECTL_IMAGE bash
+        $KUBECTL_IMAGE sleep 600
