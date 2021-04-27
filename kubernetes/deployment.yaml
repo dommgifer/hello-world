@@ -18,6 +18,6 @@ spec:
       - name: dockerhub
       containers:
       - name: hello-world
-        image: dommgifer/hello-world
+        image: dommgifer/hello-world:TAG
         ports:
         - containerPort: 80
