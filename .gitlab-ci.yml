@@ -59,8 +59,8 @@ variables:
   DOCKER_TLS_CERTDIR: ""  # https://gitlab.com/gitlab-org/gitlab-runner/issues/4501
 
 stages:
-#   - build
-#   - test
+  - build
+  - test
   - deploy
 
 
@@ -147,9 +147,9 @@ workflow:
 # To view the actual templates, please replace `master` to the specific GitLab version when
 # the Auto DevOps pipeline started running e.g. `v13.0.2-ee`.
 include:
-#   - local: Jobs/Build.gitlab-ci.yml  # https://gitlab.com/gitlab-org/gitlab/blob/master/lib/gitlab/ci/templates/Jobs/Build.gitlab-ci.yml
-#   - local: Jobs/Sonarqube.gitlab-ci.yml
-#   - template: Security/SAST.gitlab-ci.yml 
+  - local: Jobs/Build.gitlab-ci.yml  # https://gitlab.com/gitlab-org/gitlab/blob/master/lib/gitlab/ci/templates/Jobs/Build.gitlab-ci.yml
+  - local: Jobs/Sonarqube.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml 
   - local: Jobs/Deploy.gitlab-ci.yml
 
 # code_quality:
