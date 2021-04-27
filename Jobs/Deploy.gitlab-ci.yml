@@ -19,4 +19,4 @@ Deploy:
       docker run  \
         -v "$MOUNT_POINT:/mnt" \
         $KUBECTL_IMAGE \
-        kubectl apply --kubeconfig=/mnt/config -f kubernetes/
+        kubectl apply --kubeconfig=/mnt/config -f /mnt/kubernetes/
