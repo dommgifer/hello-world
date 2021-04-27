@@ -14,6 +14,7 @@ Deploy:
     # - mkdir -p "$MOUNT_POINT"
     - echo $KUBE_CONFIG | base64 -d > $MOUNT_POINT/config
     - sed -i ‘s/TAG/$CI_COMMIT_SHA/g’ deployment.yaml
+    - /bin/sleep 600
     - docker pull "$KUBECTL_IMAGE"
     - |
       docker run  \
