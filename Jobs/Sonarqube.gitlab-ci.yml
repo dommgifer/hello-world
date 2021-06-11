@@ -9,6 +9,7 @@ Sonarqube:
     SONAR_IMAGE: sonarsource/sonar-scanner-cli
     DOCKER_HOST: "tcp://localhost:2375"
   script:
+    - echo $SONAR_HOST_URL
     - docker pull --quiet "$SONAR_IMAGE"
     - |
       docker run \

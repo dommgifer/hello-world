@@ -15,9 +15,9 @@ spec:
         app: helloserver
     spec:
       imagePullSecrets:
-      - name: dockerhub
+      - name: harbor
       containers:
       - name: hello-world
-        image: dommgifer/hello-world:TAG
+        image: harbor.192.168.50.102.nip.io/demo/hello-world:TAG
         ports:
         - containerPort: 80
