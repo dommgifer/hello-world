@@ -1,5 +1,8 @@
 Deploy:
   stage: deploy
+  only:
+    - dev
+    - tags
   image: docker:19.03.12
   allow_failure: true
   services:
