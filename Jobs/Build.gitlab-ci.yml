@@ -4,10 +4,11 @@ build:
   #   - dev
   #   - tags
   # image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v0.4.0"
-  image: docker:19.03.12-dind
+  # image: docker:19.03.12-dind
+  image: docker:latest
   variables:
     DOCKER_TLS_CERTDIR: ""
-    DOCKER_HOST: "tcp://docker:2375"
+    # DOCKER_HOST: "tcp://localhost:2375"
     CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY
     HARBOR: $HARBOR
     HARBOR_CERT: $HARBOR_CERT
