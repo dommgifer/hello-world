@@ -10,6 +10,7 @@ build:
     CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY
     HARBOR: $HARBOR
     HARBOR_CERT: $HARBOR_CERT
+    DOCKER_TLS_VERIFY: 0
   services:
     - docker:19.03.12-dind
   before_script:
