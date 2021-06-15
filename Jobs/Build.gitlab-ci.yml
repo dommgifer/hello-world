@@ -13,7 +13,7 @@ build:
   services:
     - name: docker:19.03.12-dind
       entrypoint: ["dockerd-entrypoint.sh"]
-      command: ["--insecure-registry", "$HARBOR"]
+      command: ["--insecure-registry", "harbor.192.168.50.102.nip.io"]
   before_script:
     - mkdir -p /etc/docker/certs.d/$HARBOR/
     - echo "$HARBOR_CERT" | base64 -d > "/etc/docker/certs.d/$HARBOR/ca.crt"
