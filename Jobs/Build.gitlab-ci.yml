@@ -7,7 +7,7 @@ build:
   image: docker:latest
   variables:
     DOCKER_TLS_CERTDIR: ""
-    # DOCKER_HOST: "tcp://localhost:2375"
+    DOCKER_HOST: "tcp://0.0.0.0:2375"
     CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY
     CI_APPLICATION_TAG: $CI_COMMIT_BRANCH
     CI_REGISTRY: $CI_REGISTRY
