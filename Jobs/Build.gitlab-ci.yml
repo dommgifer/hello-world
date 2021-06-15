@@ -13,7 +13,9 @@ build:
   script:
     # - mkdir -p /etc/gitlab-runner/certs/
     # - echo $HARBOR_CERT | base64 -d > $DOCKER_TLS_CERTDIR/$HARBOR.crt 
-    - sleep 180
+    # - sleep 180
+    - mkdir -p /etc/docker/certs.d/$HARBOR/
+    - echo $HARBOR_CERT | base64 -d > /etc/docker/certs.d/$HARBOR/ca.crt 
     - docker build -t $CI_APPLICATION_REPOSITORY:$CI_COMMIT_BRANCH .
     - docker login $HARBOR -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker push $CI_APPLICATION_REPOSITORY:$CI_COMMIT_BRANCH
