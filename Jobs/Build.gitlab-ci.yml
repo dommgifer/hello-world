@@ -7,7 +7,7 @@ build:
   image: docker:latest
   variables:
     DOCKER_TLS_CERTDIR: ""
-    DOCKER_HOST: "tcp://localhost:2375"
+    # DOCKER_HOST: "tcp://localhost:2375"
     CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY
     CI_APPLICATION_TAG: $CI_COMMIT_BRANCH
     CI_REGISTRY: $CI_REGISTRY
@@ -17,7 +17,7 @@ build:
     HARBOR_CERT: $HARBOR_CERT
   services:
     - name: docker:20.10.6-dind
-  #     command: ['--tls=false', '--host=tcp://0.0.0.0:2375']
+      command: ['--tls=false', '--host=tcp://0.0.0.0:2375']
       # entrypoint: ["dockerd-entrypoint.sh"]
       # command: ["--insecure-registry", "harbor.192.168.50.102.nip.io"]
   before_script:
