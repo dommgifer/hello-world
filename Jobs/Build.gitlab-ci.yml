@@ -10,8 +10,8 @@ build:
     CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY
     HARBOR: $HARBOR
     HARBOR_CERT: $HARBOR_CERT
-  # services:
-  #   - docker:19.03.12-dind
+  services:
+    - docker:19.03.12-dind
   before_script:
     - mkdir -p /etc/docker/certs.d/$HARBOR/
     - echo "$HARBOR_CERT" | base64 -d > "/etc/docker/certs.d/$HARBOR/ca.crt"
