@@ -10,9 +10,10 @@ build:
     CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY
     HARBOR: $HARBOR
     HARBOR_CERT: $HARBOR_CERT
-    DOCKER_TLS_VERIFY: 1
   services:
-    - docker:19.03.12-dind
+    - name: docker:19.03.12-dind
+      entrypoint: ["dockerd-entrypoint.sh"]
+      command: ["--insecure-registry", "$HARBOR"]
   before_script:
     - mkdir -p /etc/docker/certs.d/$HARBOR/
     - echo "$HARBOR_CERT" | base64 -d > "/etc/docker/certs.d/$HARBOR/ca.crt"
