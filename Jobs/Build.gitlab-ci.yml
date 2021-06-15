@@ -5,14 +5,14 @@ build:
   #   - tags
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v0.4.0"
   variables:
-    DOCKER_TLS_CERTDIR: "/etc/gitlab-runner/certs/$HARBOR.crt"
+    DOCKER_TLS_CERTDIR: "/etc/gitlab-runner/certs"
     DOCKER_HOST: "tcp://docker:2375"
     CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY
   services:
     - docker:19.03.12-dind
   script:
     # - mkdir -p /etc/gitlab-runner/certs/
-    # - echo $HARBOR_CERT | base64 -d > $DOCKER_TLS_CERTDIR 
+    - echo $HARBOR_CERT | base64 -d > $DOCKER_TLS_CERTDIR/$HARBOR.crt 
     - sleep 180
     - docker build -t $CI_APPLICATION_REPOSITORY:$CI_COMMIT_BRANCH .
     - docker login $HARBOR -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
