@@ -3,17 +3,22 @@ build:
   only:
     - dev
     - tags
-  image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v0.4.0"
+  image: docker:latest
   variables:
-    DOCKER_TLS_CERTDIR: "/etc/gitlab-runner/certs/$HARBOR.crt"
+    DOCKER_TLS_CERTDIR: ""
     DOCKER_HOST: "tcp://localhost:2375"
     CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY
+    CI_APPLICATION_TAG: $CI_COMMIT_BRANCH
+    CI_REGISTRY: $CI_REGISTRY
+    CI_REGISTRY_USER: $CI_REGISTRY_USER
+    CI_REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
+    HARBOR: $HARBOR
+    HARBOR_CERT: $HARBOR_CERT
   services:
-    - docker:19.03.12-dind
+    - name: docker:19.03.12-dind
+      entrypoint: ["dockerd-entrypoint.sh"]
+      command: ["--insecure-registry", "harbor.192.168.50.102.nip.io"]
   script:
-    - mkdir -p /etc/gitlab-runner/certs/
-    - echo $HARBOR_CERT | base64 -d > $DOCKER_TLS_CERTDIR 
-    - sleep 180
-    - docker build -t $CI_APPLICATION_REPOSITORY:$CI_COMMIT_BRANCH .
     - docker login $HARBOR -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+    - docker build -t $CI_APPLICATION_REPOSITORY:$CI_COMMIT_BRANCH .
     - docker push $CI_APPLICATION_REPOSITORY:$CI_COMMIT_BRANCH
