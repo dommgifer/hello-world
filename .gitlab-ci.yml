@@ -48,31 +48,31 @@ Sonarqube:
         -v "$(pwd):/usr/src" \
         $SONAR_IMAGE  -Dsonar.projectKey=$SONAR_PROJECT
 
-Deploy:
-  stage: deploy
-  only:
-    - dev
-    - tags
-  image: docker:19.03.12
-  allow_failure: true
-  services:
-    - docker:19.03.12-dind
-  variables:
-    DOCKER_TLS_CERTDIR: ""
-    KUBECTL_IMAGE: sikalabs/kubectl:latest
-    DOCKER_HOST: "tcp://localhost:2375"
-    # KUBE_CONFIG: $KUBE_CONFIG
-    MOUNT_POINT: /builds/$CI_PROJECT_PATH
-  script:
-    # - mkdir -p "$MOUNT_POINT"
-    - echo $KUBE_CONFIG | base64 -d > $MOUNT_POINT/config
-    - sed -i 's/TAG/'"$CI_COMMIT_BRANCH"'/g' kubernetes/deployment.yaml
-    - docker pull "$KUBECTL_IMAGE"
-    - |
-      docker run  \
-        -v "$MOUNT_POINT:/mnt" \
-        $KUBECTL_IMAGE \
-        kubectl apply --kubeconfig=/mnt/config -f /mnt/kubernetes/
+# Deploy:
+#   stage: deploy
+#   only:
+#     - dev
+#     - tags
+#   image: docker:19.03.12
+#   allow_failure: true
+#   services:
+#     - docker:19.03.12-dind
+#   variables:
+#     DOCKER_TLS_CERTDIR: ""
+#     KUBECTL_IMAGE: sikalabs/kubectl:latest
+#     DOCKER_HOST: "tcp://localhost:2375"
+#     # KUBE_CONFIG: $KUBE_CONFIG
+#     MOUNT_POINT: /builds/$CI_PROJECT_PATH
+#   script:
+#     # - mkdir -p "$MOUNT_POINT"
+#     - echo $KUBE_CONFIG | base64 -d > $MOUNT_POINT/config
+#     - sed -i 's/TAG/'"$CI_COMMIT_BRANCH"'/g' kubernetes/deployment.yaml
+#     - docker pull "$KUBECTL_IMAGE"
+#     - |
+#       docker run  \
+#         -v "$MOUNT_POINT:/mnt" \
+#         $KUBECTL_IMAGE \
+#         kubectl apply --kubeconfig=/mnt/config -f /mnt/kubernetes/
 
 include:
   # - local: Jobs/Sonarqube.gitlab-ci.yml
