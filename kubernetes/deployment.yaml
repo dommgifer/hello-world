@@ -4,6 +4,10 @@ metadata:
   name: example-helloserver
   labels:
     app: helloserver
+  annotations:
+    # force policy will ensure that deployment is updated
+    # even when tag is unchanged (latest remains)
+    keel.sh/policy: force
 spec:
   replicas: 1
   selector:
