@@ -19,5 +19,6 @@ spec:
       containers:
       - name: hello-world
         image: harbor.192.168.50.102.nip.io/demo/hello-world:TAG
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
