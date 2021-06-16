@@ -16,9 +16,9 @@ build:
     HARBOR: $HARBOR
     HARBOR_CERT: $HARBOR_CERT
   services:
-    - name: docker:20.10.6-dind
+    - name: docker:19.03.12-dind
       # command: ['--tls=false', '--host=tcp://0.0.0.0:2375']
-      # entrypoint: ["dockerd-entrypoint.sh"]
+      entrypoint: ["dockerd-entrypoint.sh"]
       command: ["--insecure-registry", "harbor.192.168.50.102.nip.io"]
   # before_script:
   #   - mkdir -p /etc/docker/certs.d/$HARBOR/
