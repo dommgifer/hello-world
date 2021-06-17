@@ -5,7 +5,7 @@ metadata:
   labels:
     app: helloserver-NAME
   annotations:
-    keel.sh/policy: force
+    keel.sh/policy: patch
     keel.sh/trigger: poll      
     keel.sh/pollSchedule: "@every 30s"
 spec:
