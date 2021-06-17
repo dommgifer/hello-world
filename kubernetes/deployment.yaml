@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-helloserver
+  name: hello-world-NAME
   labels:
-    app: helloserver
+    app: helloserver-NAME
   annotations:
     keel.sh/policy: force
     keel.sh/trigger: poll      
@@ -12,11 +12,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: helloserver
+      app: helloserver-NAME
   template:
     metadata:
       labels:
-        app: helloserver
+        app: helloserver-NAME
     spec:
       imagePullSecrets:
       - name: harbor
@@ -26,3 +26,16 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloserver-service-NAME
+spec:
+  selector:
+    app: helloserver-NAME
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
