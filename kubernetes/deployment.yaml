@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: hello-world-NAME
   labels:
-    app: helloserver
+    app: helloserver-NAME
   annotations:
     keel.sh/policy: force
     keel.sh/trigger: poll      
@@ -12,11 +12,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: helloserver
+      app: helloserver-NAME
   template:
     metadata:
       labels:
-        app: helloserver
+        app: helloserver-NAME
     spec:
       imagePullSecrets:
       - name: harbor
