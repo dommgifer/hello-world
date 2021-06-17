@@ -26,3 +26,16 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloserver-service-NAME
+spec:
+  selector:
+    app: helloserver-NAME
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
