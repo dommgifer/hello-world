@@ -1,63 +1,63 @@
 stages:
-  - test
-  - build
+  # - test
+  # - build
   - deploy
 
-build:
-  stage: build
-  except:
-    - master
-  # only:
-  #   - dev
-  #   - tags
-  image: docker:latest
-  variables:
-    DOCKER_TLS_CERTDIR: ""
-    DOCKER_HOST: "tcp://localhost:2375"
-    CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY
-    # CI_APPLICATION_TAG: $CI_COMMIT_BRANCH
-    CI_REGISTRY: $CI_REGISTRY
-    CI_REGISTRY_USER: $CI_REGISTRY_USER
-    CI_REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
-    HARBOR: $HARBOR
-    HARBOR_CERT: $HARBOR_CERT
-  services:
-    - name: docker:19.03.12-dind
-      entrypoint: ["dockerd-entrypoint.sh"]
-      command: ["--insecure-registry", "harbor.192.168.50.102.nip.io"]
-  script:
-    - docker login $HARBOR -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-    # - |
-    #   if [[ $CI_COMMIT_REF_NAME == "feat/"* ]]; 
-    #     then
-    #       CI_APPLICATION_TAG=$(echo "$CI_COMMIT_REF_NAME" | sed 's/\//-/g')
-    #     else
-    #       CI_APPLICATION_TAG=$CI_COMMIT_REF_NAME
-    #   fi
-    - docker build -t $CI_APPLICATION_REPOSITORY:$CI_COMMIT_REF_SLUG .
-    - docker push $CI_APPLICATION_REPOSITORY:$CI_COMMIT_REF_SLUG
+# build:
+#   stage: build
+#   except:
+#     - master
+#   # only:
+#   #   - dev
+#   #   - tags
+#   image: docker:latest
+#   variables:
+#     DOCKER_TLS_CERTDIR: ""
+#     DOCKER_HOST: "tcp://localhost:2375"
+#     CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY
+#     # CI_APPLICATION_TAG: $CI_COMMIT_BRANCH
+#     CI_REGISTRY: $CI_REGISTRY
+#     CI_REGISTRY_USER: $CI_REGISTRY_USER
+#     CI_REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
+#     HARBOR: $HARBOR
+#     HARBOR_CERT: $HARBOR_CERT
+#   services:
+#     - name: docker:19.03.12-dind
+#       entrypoint: ["dockerd-entrypoint.sh"]
+#       command: ["--insecure-registry", "harbor.192.168.50.102.nip.io"]
+#   script:
+#     - docker login $HARBOR -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+#     # - |
+#     #   if [[ $CI_COMMIT_REF_NAME == "feat/"* ]]; 
+#     #     then
+#     #       CI_APPLICATION_TAG=$(echo "$CI_COMMIT_REF_NAME" | sed 's/\//-/g')
+#     #     else
+#     #       CI_APPLICATION_TAG=$CI_COMMIT_REF_NAME
+#     #   fi
+#     - docker build -t $CI_APPLICATION_REPOSITORY:$CI_COMMIT_REF_SLUG .
+#     - docker push $CI_APPLICATION_REPOSITORY:$CI_COMMIT_REF_SLUG
 
-Sonarqube:
-  stage: test
-  except:
-    - master
-  image: docker:19.03.12
-  allow_failure: true
-  services:
-    - docker:19.03.12-dind
-  variables:
-    DOCKER_TLS_CERTDIR: ""
-    SONAR_IMAGE: sonarsource/sonar-scanner-cli
-    DOCKER_HOST: "tcp://localhost:2375"
-  script:
-    - echo $SONAR_HOST_URL
-    - docker pull --quiet "$SONAR_IMAGE"
-    - |
-      docker run \
-        -e SONAR_HOST_URL="$SONAR_HOST_URL" \
-        -e SONAR_LOGIN="$SONAR_LOGIN" \
-        -v "$(pwd):/usr/src" \
-        $SONAR_IMAGE  -Dsonar.projectKey=$SONAR_PROJECT
+# Sonarqube:
+#   stage: test
+#   except:
+#     - master
+#   image: docker:19.03.12
+#   allow_failure: true
+#   services:
+#     - docker:19.03.12-dind
+#   variables:
+#     DOCKER_TLS_CERTDIR: ""
+#     SONAR_IMAGE: sonarsource/sonar-scanner-cli
+#     DOCKER_HOST: "tcp://localhost:2375"
+#   script:
+#     - echo $SONAR_HOST_URL
+#     - docker pull --quiet "$SONAR_IMAGE"
+#     - |
+#       docker run \
+#         -e SONAR_HOST_URL="$SONAR_HOST_URL" \
+#         -e SONAR_LOGIN="$SONAR_LOGIN" \
+#         -v "$(pwd):/usr/src" \
+#         $SONAR_IMAGE  -Dsonar.projectKey=$SONAR_PROJECT
 
 Deploy:
   stage: deploy
@@ -77,15 +77,8 @@ Deploy:
     # KUBE_CONFIG: $KUBE_CONFIG
     MOUNT_POINT: /builds/$CI_PROJECT_PATH
   script:
-    # - mkdir -p "$MOUNT_POINT"
-    # - |
-    #   if [[ $CI_COMMIT_REF_NAME == "feat/"* ]]; 
-    #     then
-    #       CI_APPLICATION_TAG=$(echo "$CI_COMMIT_REF_NAME" | sed 's/\//-/g')
-    #     else
-    #       CI_APPLICATION_TAG=$CI_COMMIT_REF_NAME
-    #   fi
     - echo $KUBE_CONFIG | base64 -d > $MOUNT_POINT/config
+    - env
     - sed -i 's/TAG/'"$CI_COMMIT_REF_SLUG"'/g' kubernetes/deployment.yaml
     - sed -i 's/NAME/'"$CI_COMMIT_REF_SLUG"'/g' kubernetes/deployment.yaml
     - docker pull "$KUBECTL_IMAGE"
@@ -95,9 +88,9 @@ Deploy:
         $KUBECTL_IMAGE \
         kubectl apply --kubeconfig=/mnt/config -f /mnt/kubernetes/
 
-include:
+# include:
   # - local: Jobs/Sonarqube.gitlab-ci.yml
-  - template: Security/SAST.gitlab-ci.yml
+  # - template: Security/SAST.gitlab-ci.yml
   # - local: Jobs/Build.gitlab-ci.yml 
   # - local: Jobs/Deploy.gitlab-ci.yml
 
